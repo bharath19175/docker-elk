@@ -8,7 +8,9 @@ ELK stack for spring-boot/java applications using logback.
 
 # Steps to run
 1. clone the repository
-      |--------------> git clone https://github.com/bharath19175/docker-elk.git
+   ```
+      git clone https://github.com/bharath19175/docker-elk.git
+   ```
 2. cd docker-elk
 3. cd docker-elk-for-springboot-logback
 4. docker-compose up -d
