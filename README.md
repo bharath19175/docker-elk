@@ -1,50 +1,37 @@
 # docker-elk
 ELK stack for spring-boot/java applications using logback.
-Contents:
+
+# Contents:
 1. docker-compose.yml
 2. logstash_config
       |--------------> logstash.conf
 
-version: '2.1'
+# Steps to run
+1. clone the repository
+      |--------------> git clone https://github.com/bharath19175/docker-elk.git
+2. cd docker-elk
+3. cd docker-elk-for-springboot-logback
+4. docker-compose up -d
 
-services:
+# Check if the containers are running 
+1. docker ps
 
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.2
-    container_name: elasticsearch
-    environment:
-       - cluster.name=docker-cluster
-       - bootstrap.memory_lock=true
-       - xpack.security.enabled=false
-       - discovery.type=single-node
-       - discovery.zen.minimum_master_nodes=1
-       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    mem_limit: 2g
-    ports:
-      - "9200:9200"
-      - "9300:9300"
+# check if elasticsearch and kibana are running on ports 9200 and 5601
+1. open browser
+2. enter "localhost:9200" for elasticsearch
+3. enter "localhost:5601" for kibana
+4. you should see output in localhost:9200 and kibana dashboard on localhost:5601
 
-  logstash:
-    image: docker.elastic.co/logstash/logstash:6.3.2
-    container_name: logstash
-    command: logstash -f /etc/logstash/conf.d/logstash.conf
-    volumes:
-     - ./logstash_config:/etc/logstash/conf.d
-    ports:
-     - "5044:5044"
-    links:
-     - elasticsearch
+# That's it!!!!!!!
+make neccesory changes in your spring-boot java application's logback.xml file.
 
-  kibana:
-    image: docker.elastic.co/kibana/kibana:6.3.2
-    container_name: kibana
-    environment:
-     - ELASTICSEARCH_URL=http://elasticsearch:9200
-    ports:
-     - "5601:5601"
-    links:
-     - elasticsearch
+# important!!!!!!!
+In the appender block of logback.xml add destination as "localhost:5044".
 
-volumes:
-  esdata1:
-      driver: local
+# example
+  <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender>
+      <destination>localhost:5044</destination>
+      <encoder> </encoder>
+  </appender>
+      
+
