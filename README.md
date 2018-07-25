@@ -33,5 +33,3 @@ In the appender block of logback.xml add destination as "localhost:5044".
       <destination>localhost:5044</destination>
       <encoder> </encoder>
   </appender>
-      
-
