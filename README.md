@@ -29,7 +29,9 @@ make neccesory changes in your spring-boot java application's logback.xml file.
 In the appender block of logback.xml add destination as "localhost:5044".
 
 # example
+'''
   <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender>
       <destination>localhost:5044</destination>
       <encoder> </encoder>
   </appender>
+'''
